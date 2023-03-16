@@ -1,3 +1,5 @@
+package org.example;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -122,6 +124,47 @@ public class DoublyLinkedListDequeTest {
                 doublyLinkedListDeque.deleteLast();
                 assertEquals(1, doublyLinkedListDeque.last());
                 assertEquals(1, doublyLinkedListDeque.size());
+            }
+
+            @Test
+            @DisplayName("try to remove an node with a value that it doesn't exists in a non empty Queue")
+            void shouldNotRemoveAnyNodeTheQueueBecauseTheValueDoesNotExists(){
+                doublyLinkedListDeque.append(1);
+                doublyLinkedListDeque.append(2);
+                assertEquals(2, doublyLinkedListDeque.size());
+                doublyLinkedListDeque.remove(3);
+                assertEquals(2, doublyLinkedListDeque.size());
+            }
+
+            @Test
+            @DisplayName("removes the first node when remove(int value) to an non empty Queue")
+            void shouldRemoveFirstNodeWhenRemoveTheValueOnNonEmptyQueue(){
+                doublyLinkedListDeque.append(1);
+                doublyLinkedListDeque.append(2);
+                assertEquals(2, doublyLinkedListDeque.size());
+                doublyLinkedListDeque.remove(1);
+                assertEquals(1, doublyLinkedListDeque.size());
+            }
+
+            @Test
+            @DisplayName("removes the last node when remove(int value) to an non empty Queue")
+            void shouldRemoveLastNodeWhenRemoveTheValueOnNonEmptyQueue(){
+                doublyLinkedListDeque.append(1);
+                doublyLinkedListDeque.append(2);
+                assertEquals(2, doublyLinkedListDeque.size());
+                doublyLinkedListDeque.remove(2);
+                assertEquals(1, doublyLinkedListDeque.size());
+            }
+
+            @Test
+            @DisplayName("removes the node which contains the value when remove(int value) to an non empty Queue")
+            void shouldRemoveTheNodeWhichContainsTheValueWhenRemoveTheValueOnNonEmptyQueue(){
+                doublyLinkedListDeque.append(1);
+                doublyLinkedListDeque.append(2);
+                doublyLinkedListDeque.append(3);
+                assertEquals(3, doublyLinkedListDeque.size());
+                doublyLinkedListDeque.remove(2);
+                assertEquals(2, doublyLinkedListDeque.size());
             }
         }
 
