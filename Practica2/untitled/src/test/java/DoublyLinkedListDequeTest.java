@@ -3,7 +3,15 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+/*
+* Autores: Iván Delgado Alba y Marina Sayago Gutiérrez
+*
+*/
 
 @DisplayName("A doubly linked list deque")
 public class DoublyLinkedListDequeTest {
@@ -118,8 +126,8 @@ public class DoublyLinkedListDequeTest {
         }
 
         @Nested
-        @DisplayName("when get information of the queue")
-        class getters{
+        @DisplayName("when getting information of the queue")
+        class getFirstLastAndSize{
             @Test
             @DisplayName("throws exception when first() of an empty queue")
             void shouldThrowExceptionFirstOnEmptyQueue(){
@@ -158,6 +166,129 @@ public class DoublyLinkedListDequeTest {
                 doublyLinkedListDeque.append(1);
                 assertNotEquals(0, doublyLinkedListDeque.size());
                 assertEquals(1, doublyLinkedListDeque.size());
+            }
+
+
+            @Nested
+            @DisplayName("when using get()")
+            class getFunction{
+                @Test
+                @DisplayName("throws IndexOutOfBoundsException when index is greater than size")
+                void indexFourOnAQueueWithSizeTwoShouldThrowException(){
+                    doublyLinkedListDeque.append(1);
+                    doublyLinkedListDeque.append(2);
+                    assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(4));
+                }
+
+                @Test
+                @DisplayName("throws IndexOutOfBoundsException when index is minor than zero")
+                void indexMinosOneOnAQueueWithSizeTwoShouldThrowException(){
+                    doublyLinkedListDeque.append("Primero");
+                    doublyLinkedListDeque.append("Segundo");
+                    assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(-1));
+                }
+
+                @Test
+                @DisplayName("returns the first element when index is zero")
+                void indexZeroShouldReturnTheFirstElementOfTheQueue(){
+                    doublyLinkedListDeque.append("Primero");
+                    doublyLinkedListDeque.append("Segundo");
+                    doublyLinkedListDeque.append("Tercero");
+                    doublyLinkedListDeque.append("Cuarto");
+                    doublyLinkedListDeque.append("Quinto");
+                    assertEquals("Primero", doublyLinkedListDeque.get(0));
+                }
+
+                @Test
+                @DisplayName("returns the element when index is on the first half of the queue")
+                void indexOneShouldReturnTheSecondElementOfAQueueWithSizeFive(){
+                    doublyLinkedListDeque.append("Primero");
+                    doublyLinkedListDeque.append("Segundo");
+                    doublyLinkedListDeque.append("Tercero");
+                    doublyLinkedListDeque.append("Cuarto");
+                    doublyLinkedListDeque.append("Quinto");
+                    assertEquals("Segundo", doublyLinkedListDeque.get(1));
+                }
+
+                @Test
+                @DisplayName("returns the last element when index is size minus one")
+                void indexSizeMinosOneShouldReturnTheLastElementOfTheQueue(){
+                    doublyLinkedListDeque.append("Primero");
+                    doublyLinkedListDeque.append("Segundo");
+                    doublyLinkedListDeque.append("Tercero");
+                    doublyLinkedListDeque.append("Cuarto");
+                    doublyLinkedListDeque.append("Quinto");
+                    assertEquals("Quinto", doublyLinkedListDeque.get(4));
+                }
+
+                @Test
+                @DisplayName("returns the element when index is on the second half of the queue")
+                void indexThreeShouldReturnTheFourthElementOfAQueueWithSizeFive(){
+                    doublyLinkedListDeque.append("Primero");
+                    doublyLinkedListDeque.append("Segundo");
+                    doublyLinkedListDeque.append("Tercero");
+                    doublyLinkedListDeque.append("Cuarto");
+                    doublyLinkedListDeque.append("Quinto");
+                    assertEquals("Cuarto", doublyLinkedListDeque.get(3));
+                }
+            }
+
+            @Nested
+            @DisplayName("when using contains()")
+            class containsTest{
+
+                @Test
+                @DisplayName("returns false when the item is not on the queue")
+                void shouldReturnFalseWhenItemIsNotOnTheQueue(){
+                    doublyLinkedListDeque.append("a");
+                    doublyLinkedListDeque.append("b");
+                    assertEquals(false, doublyLinkedListDeque.contains("c"));
+                }
+
+                @Test
+                @DisplayName("returns true when the item is on the queue")
+                void shouldReturnTrueWhenItemIsOnTheQueue(){
+                    doublyLinkedListDeque.append("a");
+                    doublyLinkedListDeque.append("b");
+                    doublyLinkedListDeque.append("c");
+                    assertEquals(true, doublyLinkedListDeque.contains("b"));
+                }
+
+                @Test
+                @DisplayName("returns true when the item is on the first node of the queue")
+                void shouldReturnTrueWhenItemIsFirstOnTheQueue(){
+                    doublyLinkedListDeque.append("a");
+                    doublyLinkedListDeque.append("b");
+                    assertEquals(true, doublyLinkedListDeque.contains("a"));
+                }
+
+                @Test
+                @DisplayName("returns true when the item is on the last node of the queue")
+                void shouldReturnTrueWhenItemIsLastOnTheQueue(){
+                    doublyLinkedListDeque.append("a");
+                    doublyLinkedListDeque.append("b");
+                    assertEquals(true, doublyLinkedListDeque.contains("b"));
+                }
+            }
+
+        }
+
+        @Nested
+        @DisplayName("when using sort()")
+        class sortTest{
+
+            @Test
+            @DisplayName("a numeric comparator sort a disordered queue with numeric elements")
+            void a(){
+                Comparator mockedComparator = mock(Comparator.class);
+                when(mockedComparator.compare(1,2)).thenReturn(-1);
+
+                doublyLinkedListDeque.prepend(1);
+                doublyLinkedListDeque.prepend(2);
+
+                doublyLinkedListDeque.sort(mockedComparator);
+                assertEquals(1, doublyLinkedListDeque.first());
+                assertEquals(2, doublyLinkedListDeque.last());
             }
 
         }
