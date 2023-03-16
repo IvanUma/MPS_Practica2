@@ -1,5 +1,3 @@
-package org.example;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -128,7 +126,7 @@ public class DoublyLinkedListDequeTest {
 
             @Test
             @DisplayName("try to remove an node with a value that it doesn't exists in a non empty Queue")
-            void shouldNotRemoveAnyNodeTheQueueBecauseTheValueDoesNotExists(){
+            void shouldNotRemoveAnyNodeOfTheQueueBecauseTheValueDoesNotExists(){
                 doublyLinkedListDeque.append(1);
                 doublyLinkedListDeque.append(2);
                 assertEquals(2, doublyLinkedListDeque.size());
@@ -321,10 +319,10 @@ public class DoublyLinkedListDequeTest {
         class sortTest{
 
             @Test
-            @DisplayName("a numeric comparator sort a disordered queue with numeric elements")
-            void a(){
+            @DisplayName("a numeric comparator sort on a disordered queue with numeric elements")
+            void disorderedSimpleNumericQueue(){
                 Comparator mockedComparator = mock(Comparator.class);
-                when(mockedComparator.compare(1,2)).thenReturn(-1);
+                when(mockedComparator.compare(2,1)).thenReturn(1);
 
                 doublyLinkedListDeque.prepend(1);
                 doublyLinkedListDeque.prepend(2);
@@ -334,6 +332,40 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(2, doublyLinkedListDeque.last());
             }
 
+            @Test
+            @DisplayName("a numeric comparator sort on an ordered queue with numeric elements")
+            void OrderedNumericQueue(){
+                Comparator mockedComparator = mock(Comparator.class);
+                when(mockedComparator.compare(1,2)).thenReturn(-1);
+
+                doublyLinkedListDeque.prepend(2);
+                doublyLinkedListDeque.prepend(1);
+
+                doublyLinkedListDeque.sort(mockedComparator);
+                assertEquals(1, doublyLinkedListDeque.first());
+                assertEquals(2, doublyLinkedListDeque.last());
+            }
+
+            @Test
+            @DisplayName("a numeric comparator sort on a disordered queue with three items")
+            void disorderedWithMoreItemsNumericQueue(){
+                Comparator mockedComparator = mock(Comparator.class);
+                when(mockedComparator.compare(2,1)).thenReturn(1);
+                when(mockedComparator.compare(3,2)).thenReturn(1);
+                when(mockedComparator.compare(3,1)).thenReturn(2);
+                when(mockedComparator.compare(1,2)).thenReturn(-1);
+                when(mockedComparator.compare(2,3)).thenReturn(-1);
+                when(mockedComparator.compare(1,3)).thenReturn(-2);
+
+                doublyLinkedListDeque.prepend(1);
+                doublyLinkedListDeque.prepend(2);
+                doublyLinkedListDeque.prepend(3);
+
+                doublyLinkedListDeque.sort(mockedComparator);
+
+                assertEquals(1, doublyLinkedListDeque.first());
+                assertEquals(3, doublyLinkedListDeque.last());
+            }
         }
 
     }

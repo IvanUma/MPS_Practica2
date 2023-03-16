@@ -142,7 +142,9 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
                 aux = null;
                 size--;
             }
-            aux = aux.getNext();
+            if(aux != null){
+                aux = aux.getNext();
+            }
             cnt--;
         }
 
@@ -150,28 +152,44 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void sort(Comparator<? super T> comparator) {
-        int i, j;
-        DequeNode<T> iterator = first;
-        DequeNode<T> aux, next, prev;
-        for (i = 0; i < size - 1; i++) {
-            for (j = 0; j < size - i - 1; j++) {
-                if (comparator.compare(iterator.getNext().getItem(), iterator.getItem()) < 0) {
-
-                    next = iterator.getNext();
-                    prev = iterator.getPrevious();
-                    aux = iterator;
-                    iterator.setPrevious(next);
-                    iterator.setNext(next.getNext());
-                    next.setPrevious(prev);
-                    next.setNext(aux);
-                    if(next.getPrevious() == null){
-                        first = next;
-                    }
-                    if(iterator.getNext() == null){
-                        last = iterator;
-                    }
+        DequeNode<T> current, previous, next;
+        for (int i = size - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                current = getNode(j);
+                previous = current.getPrevious();
+                next = current.getNext();
+                if (comparator.compare(current.getItem(), next.getItem()) > 0) {
+                    swap(current, previous, next);
                 }
             }
         }
     }
+
+    private DequeNode<T> getNode(int index){
+        DequeNode<T> node = first;
+        while(index > 0){
+            node = node.getNext();
+            index--;
+        }
+        return node;
+    }
+
+    private void swap(DequeNode<T> current, DequeNode<T> prev, DequeNode<T> next){
+        current.setNext(next.getNext());
+        current.setPrevious(next);
+        if(prev != null){
+            prev.setNext(next);
+        }
+
+        next.setNext(current);
+        next.setPrevious(prev);
+
+        if(current.isLastNode()){
+            last = current;
+        }
+        if(next.isFirstNode()){
+            first = next;
+        }
+    }
+
 }
