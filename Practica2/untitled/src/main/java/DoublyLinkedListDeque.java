@@ -1,5 +1,3 @@
-package org.example;
-
 import java.util.Comparator;
 
 public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
@@ -87,26 +85,44 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
         return size;
     }
 
+    @Override
     public T get(int index){
-        if(index == 0){
-            return first();
-        }else if(index == size()){
-            return last();
-        }else{
-            DequeNode<T> aux = first;
-            for(int i = 1; i <= index; i++){
-                aux.getNext();
-            }
-            return aux.getItem();
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException("No es posible acceder al índice indicado");
         }
-
+        DequeNode<T> aux;
+        if(index + 1 > size / 2){
+            aux = last;
+            for(int cnt = size - 1 - index; cnt > 0; cnt--){
+                aux = aux.getPrevious();
+            }
+        }else{
+            aux = first;
+            for(int cnt = 0; cnt < index; cnt++){
+                aux = aux.getNext();
+            }
+        }
+        return aux.getItem();
     }
 
-    public boolean contains(T value){
-        
+    @Override
+    public boolean contains(T value) {
+
+        int cnt = size;
+        boolean found = false;
+        DequeNode<T> aux = first;
+        while (!found && cnt > 0) {
+            if(value.equals(aux.getItem())){
+                found = true;
+            }
+            aux = aux.getNext();
+            cnt--;
+        }
+        return found;
     }
 
-    public void remove(T value){
+    @Override
+    public void remove(T value) {
         int cnt = size;
         boolean deleted = false;
         DequeNode<T> aux = first;
@@ -114,15 +130,16 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
             if(value.equals(aux.getItem()) && cnt == size){
                 deleteFirst();
                 deleted = true;
-            }else if(value.equals(aux.getItem()) && cnt == 1){
+            } else if(value.equals(aux.getItem()) && cnt == 1){
                 deleteLast();
                 deleted = true;
-            }else if (value.equals(aux.getItem())){
+            }else if(value.equals(aux.getItem())){
                 deleted = true;
                 aux.getNext().setPrevious(aux.getPrevious());
                 aux.getPrevious().setNext(aux.getNext());
                 aux.setNext(null);
                 aux.setPrevious(null);
+                aux = null;
                 size--;
             }
             aux = aux.getNext();
@@ -131,7 +148,8 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     }
 
-    public void sort(Comparator<? super T> comparator){
-
+    @Override
+    public void sort(Comparator<? super T> comparator) {
+        
     }
 }
