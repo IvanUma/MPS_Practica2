@@ -150,6 +150,28 @@ public class DoublyLinkedListDeque<T> implements DoubleEndedQueue<T> {
 
     @Override
     public void sort(Comparator<? super T> comparator) {
-        
+        int i, j;
+        DequeNode<T> iterator = first;
+        DequeNode<T> aux, next, prev;
+        for (i = 0; i < size - 1; i++) {
+            for (j = 0; j < size - i - 1; j++) {
+                if (comparator.compare(iterator.getNext().getItem(), iterator.getItem()) < 0) {
+
+                    next = iterator.getNext();
+                    prev = iterator.getPrevious();
+                    aux = iterator;
+                    iterator.setPrevious(next);
+                    iterator.setNext(next.getNext());
+                    next.setPrevious(prev);
+                    next.setNext(aux);
+                    if(next.getPrevious() == null){
+                        first = next;
+                    }
+                    if(iterator.getNext() == null){
+                        last = iterator;
+                    }
+                }
+            }
+        }
     }
 }
