@@ -1,0 +1,10 @@
+org\example\DequeNodeTest$isTerminalNode.class
+org\example\DoublyLinkedListDequeTest$WhenNew$addNodes.class
+org\example\DoublyLinkedListDequeTest$WhenNew$sortTest.class
+org\example\DoublyLinkedListDequeTest$WhenNew$getFirstLastAndSize.class
+org\example\DoublyLinkedListDequeTest$WhenNew.class
+org\example\DoublyLinkedListDequeTest$WhenNew$deleteNodes.class
+org\example\DequeNodeTest.class
+org\example\DoublyLinkedListDequeTest.class
+org\example\DoublyLinkedListDequeTest$WhenNew$getFirstLastAndSize$containsTest.class
+org\example\DoublyLinkedListDequeTest$WhenNew$getFirstLastAndSize$getFunction.class
