@@ -14,40 +14,43 @@ import static org.mockito.Mockito.*;
 * Autores: Iván Delgado Alba y Marina Sayago Gutiérrez
 *
 *
-* Test cases
-* 1. instantiated with doublyLinkedListDeque<>()
-* 2. when size == 0 if first() of an empty queue then raises a DoubleEndedQueueException() && if last() of an empty queue then raises a DoubleEndedQueueException()
-* 3. first() == last() && size == 1 && "Elemento" == first()
-* 4. first() != last() && size == 2 && 2 == first() && 1 != first()
-* 5. first() == last() && size == 1 && "Elemento" == last()
-* 6. first() != last() && size == 2 && 2 == last() && 1 != last()
-* 7. when size == 0 if deleteFirst() of an empty queue then raises a DoubleEndedQueueException()
-* 8. when size == 2 if deleteFirst() then size == 1 && first() == 1
-* 9. when size == 0 if deleteLast() of an empty queue then raises a DoubleEndedQueueException()
-* 10. when size == 2 if deleteLast() then size == 1 && last() == 1
-* 11. when size == 2 if remove(3) then size == 2 because the value "3" is not in the queue
-* 12. when size == 2 if remove(1) then size == 1
-* 13. when size == 2 if remove(2) then size == 1
-* 14. when size == 3 if remove(2) then size == 2
-* 15. when first() of an empty queue -> raises a DoubleEndedQueueException()
-* 16. when last() of an empty queue -> raises a DoubleEndedQueueException()
-* 17. first() == 1
-* 18. last() == 1
-* 19. size() == 0
-* 20. size() != 0 && size() == 1
-* 21. when get(4) && size == 2 -> raises a IndexOutOfBoundsException()
-* 22. when get(-1) -> raises a IndexOutOfBoundsException()
-* 23. get(0) == "Primero" (returns the first element)
-* 24. get(1) == "Segundo" (returns the element when index is on the first half of the queue)
-* 25. get(4) == "Quinto" (returns the last element)
-* 26. get(3) == "Cuarto" (returns the element when index is on the second half of the queue)
-* 27. contains("c") == false because the item is not in the queue
-* 28. contains("b") == true
-* 29. contains("a") == true (first node)
-* 30. contains("b") == true (last node)
-* 31. when the queue is (2,1) if sort() then first() == 1 && last() == 2
-* 32. when the queue is (1,2) if sort() then first() == 1 && last() == 2
-* 33. when the queue is (3,2,1) if sort() then first() == 1 && last() == 3
+* Test cases:
+* 1. instantiated with doublyLinkedListDeque<>().
+* 2. when first() of an empty queue then raises a DoubleEndedQueueException() and if last() of an empty queue
+*    then raises a DoubleEndedQueueException() and size of an empty queue is 0.
+* 3. when there is only the element "Elemento" added with prepend, the size is 1 and the first and last node are the same.
+* 4. when the queue has [2,1] then the first is not the same as the last and the first one is 2.
+* 5. when there is only the element "Elemento" added with append, the size is 1 and the first and last node are the same.
+* 6. when the queue has [2,1] then the first is not the same as the last and the last one is 2.
+* 7. when deleteFirst() of an empty queue then raises a DoubleEndedQueueException().
+* 8. when deleteFirst() on a queue with [2,1] then size is 1 and first() is 1.
+* 9. when deleteLast() of an empty queue then raises a DoubleEndedQueueException().
+* 10. when deleteLast() on a queue with [2,1] then size is 1 and last() is 1.
+* 11. when remove(3) on a queue with [1,2] then size is 2 because the value "3" is not in the queue.
+* 12. when remove(1) on a queue with [1,2] (removing the first element) then size is 1.
+* 13. when remove(2) on a queue with [1,2] (removing the last element) then size is 1.
+* 14. when remove(2) on a queue with [1,2,3] (removing an element in the middle) then size is 2.
+* 15. when first() of an empty queue raises a DoubleEndedQueueException().
+* 16. when last() of an empty queue raises a DoubleEndedQueueException().
+* 17. when first() of a queue with [1] returns 1.
+* 18. when last() of a queue with [1] returns 1.
+* 19. when size() of an empty queue returns 0.
+* 20. when size() of a queue with [1] returns 1 and not 0.
+* 21. when get(4) on a queue with [1,2] raises a IndexOutOfBoundsException().
+* 22. when get(-1) on a queue with ["Primero", "Segundo"] raises a IndexOutOfBoundsException().
+* 23. when get(0) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Primero" (returns the first element).
+* 24. when get(0) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Segundo" 
+*     (returns an element which index is on the first half of the queue).
+* 25. when get(4) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Quinto" (returns the last element).
+* 26. when get(3) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Cuarto"
+*     (returns an element which index is on the second half of the queue).
+* 27. when contains("c") on a queue with ["a", "b"] return false because the item is not in the queue.
+* 28. when contains("b") on a queue with ["a", "b", "c"] return true.
+* 29. when contains("a") on a queue with ["a", "b"] return true (first node of the queue).
+* 30. when contains("b") on a queue with ["a", "b"] return true (last node of the queue).
+* 31. when the queue has [2,1] if sort() then first() is 1 and last() is 2.
+* 32. when the queue has [1,2] if sort() then first() is 1 and last() is 2.
+* 33. when the queue has [3,2,1] if sort() then first() is 1 and last() is 3.
 *
 */
 
@@ -56,7 +59,7 @@ public class DoublyLinkedListDequeTest {
 
     DoublyLinkedListDeque doublyLinkedListDeque;
 
-    //1. instantiated with doublyLinkedListDeque<>()
+    //1. instantiated with doublyLinkedListDeque<>().
     @Test
     @DisplayName("is instantiated with new doublyLinkedListDeque")
     void isInstantiatedNew(){
@@ -71,8 +74,8 @@ public class DoublyLinkedListDequeTest {
             doublyLinkedListDeque = new DoublyLinkedListDeque();
         }
 
-        //2. when size == 0 if first() of an empty queue then raises a DoubleEndedQueueException()
-        // && if last() of an empty queue then raises a DoubleEndedQueueException()
+        //2. when first() of an empty queue then raises a DoubleEndedQueueException() and if last() of an empty queue
+        //then raises a DoubleEndedQueueException() and size of an empty queue is 0.
         @Test
         @DisplayName("is empty")
         void isEmpty(){
@@ -85,7 +88,7 @@ public class DoublyLinkedListDequeTest {
         @DisplayName("when introduced new elements")
         class addNodes{
 
-            //3. first() == last() && size == 1 && "Elemento" == first()
+            //3. when there is only the element "Elemento" added with prepend, the size is 1 and the first and last node are the same.
             @Test
             @DisplayName("there is only one node when prepend to an empty queue")
             void shouldBeUniqueElementWhenPrependEmptyQueue(){
@@ -95,7 +98,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals("Elemento", doublyLinkedListDeque.first());
             }
 
-            //4. first() != last() && size == 2 && 2 == first() && 1 != first()
+            //4. when the queue has [2,1] then the first is not the same as the last and the first one is 2.
             @Test
             @DisplayName("there are more nodes when prepend to a queue with elements")
             void shouldHasMoreThanOneWhenPrependQueueWithElements(){
@@ -107,7 +110,7 @@ public class DoublyLinkedListDequeTest {
                 assertNotEquals(1, doublyLinkedListDeque.first());
             }
 
-            //5. first() == last() && size == 1 && "Elemento" == last()
+            //5. when there is only the element "Elemento" added with append, the size is 1 and the first and last node are the same.
             @Test
             @DisplayName("there is only one node when append to an empty queue")
             void shouldBeUniqueElementWhenAppendEmptyQueue(){
@@ -117,7 +120,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals("Elemento", doublyLinkedListDeque.last());
             }
 
-            //6. first() != last() && size == 2 && 2 == last() && 1 != last()
+            //6. when the queue has [2,1] then the first is not the same as the last and the last one is 2.
             @Test
             @DisplayName("there are more nodes when append to a queue with elements")
             void shouldHasMoreThanOneWhenAppendQueueWithElements(){
@@ -135,7 +138,7 @@ public class DoublyLinkedListDequeTest {
         @DisplayName("when delete nodes")
         class deleteNodes{
 
-            //7. when size == 0 if deleteFirst() of an empty queue then raises a DoubleEndedQueueException()
+            //7. when deleteFirst() of an empty queue then raises a DoubleEndedQueueException().
             @Test
             @DisplayName("throws DoubleEndedQueueException when deleteFirst() to an empty Queue")
             void shouldThrowsExceptionWhenDeleteFirstEmptyQueue(){
@@ -143,7 +146,7 @@ public class DoublyLinkedListDequeTest {
                 assertThrows(DoubleEndedQueueException.class, () -> doublyLinkedListDeque.deleteFirst());
             }
 
-            //8. when size == 2 if deleteFirst() then size == 1 && first() == 1
+            //8. when deleteFirst() on a queue with [2,1] then size is 1 and first() is 1.
             @Test
             @DisplayName("deletes the first node when deleteFirst() to an non empty Queue")
             void shouldDeleteFirstNodeWhenDeleteFirstOnNonEmptyQueue(){
@@ -155,14 +158,14 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(1, doublyLinkedListDeque.size());
             }
 
-            //9. when size == 0 if deleteLast() of an empty queue then raises a DoubleEndedQueueException()
+            //9. when deleteLast() of an empty queue then raises a DoubleEndedQueueException().
             @Test
             @DisplayName("throws DoubleEndedQueueException when deleteLast() to an empty Queue")
             void shouldThrowsExceptionWhenDeleteLastEmptyQueue(){
                 assertThrows(DoubleEndedQueueException.class, () -> doublyLinkedListDeque.deleteLast());
             }
 
-            //10. when size == 2 if deleteLast() then size == 1 && last() == 1
+            //10. when deleteLast() on a queue with [2,1] then size is 1 and last() is 1.
             @Test
             @DisplayName("deletes the last node when deleteLast() to an non empty Queue")
             void shouldDeleteLastNodeWhenDeleteLastOnNonEmptyQueue(){
@@ -174,7 +177,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(1, doublyLinkedListDeque.size());
             }
 
-            //11. when size == 2 if remove(3) then size == 2 because the value "3" is not in the queue
+            //11. when remove(3) on a queue with [1,2] then size is 2 because the value "3" is not in the queue.
             @Test
             @DisplayName("try to remove a node with a value that it doesn't exists in a non empty Queue")
             void shouldNotRemoveAnyNodeOfTheQueueBecauseTheValueDoesNotExists(){
@@ -185,7 +188,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(2, doublyLinkedListDeque.size());
             }
 
-            //12. when size == 2 if remove(1) then size == 1
+            //12. when remove(1) on a queue with [1,2] (removing the first element) then size is 1.
             @Test
             @DisplayName("removes the first node when remove(int value) to an non empty Queue")
             void shouldRemoveFirstNodeWhenRemoveTheValueOnNonEmptyQueue(){
@@ -196,7 +199,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(1, doublyLinkedListDeque.size());
             }
 
-            //13. when size == 2 if remove(2) then size == 1
+            //13. when remove(2) on a queue with [1,2] (removing the last element) then size is 1.
             @Test
             @DisplayName("removes the last node when remove(int value) to an non empty Queue")
             void shouldRemoveLastNodeWhenRemoveTheValueOnNonEmptyQueue(){
@@ -207,7 +210,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(1, doublyLinkedListDeque.size());
             }
 
-            //14. when size == 3 if remove(2) then size == 2
+            //14. when remove(2) on a queue with [1,2,3] (removing an element in the middle) then size is 2.
             @Test
             @DisplayName("removes the node which contains the value when remove(int value) to an non empty Queue")
             void shouldRemoveTheNodeWhichContainsTheValueWhenRemoveTheValueOnNonEmptyQueue(){
@@ -224,21 +227,21 @@ public class DoublyLinkedListDequeTest {
         @DisplayName("when getting information of the queue")
         class getFirstLastAndSize{
 
-            //15. when first() of an empty queue -> raises a DoubleEndedQueueException()
+            //15. when first() of an empty queue raises a DoubleEndedQueueException().
             @Test
             @DisplayName("throws exception when first() of an empty queue")
             void shouldThrowExceptionFirstOnEmptyQueue(){
                 assertThrows(DoubleEndedQueueException.class, () -> doublyLinkedListDeque.first());
             }
 
-            //16. when last() of an empty queue -> raises a DoubleEndedQueueException()
+            //16. when last() of an empty queue raises a DoubleEndedQueueException().
             @Test
             @DisplayName("throws exception when last() of an empty queue")
             void shouldThrowExceptionLastOnEmptyQueue(){
                 assertThrows(DoubleEndedQueueException.class, () -> doublyLinkedListDeque.last());
             }
 
-            //17. first() == 1
+            //17. when first() of a queue with [1] returns 1.
             @Test
             @DisplayName("returns the first element when first() of a non empty queue")
             void shouldReturnFirstOnNonEmptyQueue(){
@@ -246,7 +249,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(1, doublyLinkedListDeque.first());
             }
 
-            //18. last() == 1
+            //18. when last() of a queue with [1] returns 1.
             @Test
             @DisplayName("returns the last element when last() of a non empty queue")
             void shouldReturnLastOnNonEmptyQueue(){
@@ -254,14 +257,14 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(1, doublyLinkedListDeque.last());
             }
 
-            //19. size() == 0
+            //19. when size() of an empty queue returns 0.
             @Test
             @DisplayName("returns cero when size() of an empty queue")
             void shouldReturnSizeCeroOfEmptyQueue(){
                 assertEquals(0, doublyLinkedListDeque.size());
             }
 
-            //20. size() != 0 && size() == 1
+            //20. when size() of a queue with [1] returns 1 and not 0.
             @Test
             @DisplayName("returns nonCero when size() of an non empty queue")
             void shouldNotReturnSizeCeroOfNonEmptyQueue(){
@@ -275,7 +278,7 @@ public class DoublyLinkedListDequeTest {
             @DisplayName("when using get()")
             class getFunction{
 
-                //21. when get(4) && size == 2 -> raises a IndexOutOfBoundsException()
+                //21. when get(4) on a queue with [1,2] raises a IndexOutOfBoundsException().
                 @Test
                 @DisplayName("throws IndexOutOfBoundsException when index is greater than size")
                 void indexFourOnAQueueWithSizeTwoShouldThrowException(){
@@ -284,7 +287,7 @@ public class DoublyLinkedListDequeTest {
                     assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(4));
                 }
 
-                //22. when get(-1) -> raises a IndexOutOfBoundsException()
+                //22. when get(-1) on a queue with ["Primero", "Segundo"] raises a IndexOutOfBoundsException().
                 @Test
                 @DisplayName("throws IndexOutOfBoundsException when index is minor than zero")
                 void indexMinosOneOnAQueueWithSizeTwoShouldThrowException(){
@@ -293,7 +296,7 @@ public class DoublyLinkedListDequeTest {
                     assertThrows(IndexOutOfBoundsException.class, () -> doublyLinkedListDeque.get(-1));
                 }
 
-                //23. get(0) == "Primero" (returns the first element)
+                //23. when get(0) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Primero" (returns the first element).
                 @Test
                 @DisplayName("returns the first element when index is zero")
                 void indexZeroShouldReturnTheFirstElementOfTheQueue(){
@@ -305,7 +308,8 @@ public class DoublyLinkedListDequeTest {
                     assertEquals("Primero", doublyLinkedListDeque.get(0));
                 }
 
-                //24. get(1) == "Segundo" (returns the element when index is on the first half of the queue)
+                //24. when get(0) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Segundo"
+                // (returns an element which index is on the first half of the queue).
                 @Test
                 @DisplayName("returns the element when index is on the first half of the queue")
                 void indexOneShouldReturnTheSecondElementOfAQueueWithSizeFive(){
@@ -317,7 +321,7 @@ public class DoublyLinkedListDequeTest {
                     assertEquals("Segundo", doublyLinkedListDeque.get(1));
                 }
 
-                //25. get(4) == "Quinto" (returns the last element)
+                //25. when get(4) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Quinto" (returns the last element).
                 @Test
                 @DisplayName("returns the last element when index is size minus one")
                 void indexSizeMinosOneShouldReturnTheLastElementOfTheQueue(){
@@ -329,7 +333,8 @@ public class DoublyLinkedListDequeTest {
                     assertEquals("Quinto", doublyLinkedListDeque.get(4));
                 }
 
-                //26. get(3) == "Cuarto" (returns the element when index is on the second half of the queue)
+                //26. when get(3) on a queue with ["Primero", "Segundo", "Tercero", "Cuarto", "Quinto"] returns "Cuarto"
+                // (returns an element which index is on the second half of the queue).
                 @Test
                 @DisplayName("returns the element when index is on the second half of the queue")
                 void indexThreeShouldReturnTheFourthElementOfAQueueWithSizeFive(){
@@ -346,7 +351,7 @@ public class DoublyLinkedListDequeTest {
             @DisplayName("when using contains()")
             class containsTest{
 
-                //27. contains("c") == false because the item is not in the queue
+                //27. when contains("c") on a queue with ["a", "b"] return false because the item is not in the queue.
                 @Test
                 @DisplayName("returns false when the item is not on the queue")
                 void shouldReturnFalseWhenItemIsNotOnTheQueue(){
@@ -355,7 +360,7 @@ public class DoublyLinkedListDequeTest {
                     assertEquals(false, doublyLinkedListDeque.contains("c"));
                 }
 
-                //28. contains("b") == true
+                //28. when contains("b") on a queue with ["a", "b", "c"] return true.
                 @Test
                 @DisplayName("returns true when the item is on the queue")
                 void shouldReturnTrueWhenItemIsOnTheQueue(){
@@ -365,7 +370,7 @@ public class DoublyLinkedListDequeTest {
                     assertEquals(true, doublyLinkedListDeque.contains("b"));
                 }
 
-                //29. contains("a") == true (first node)
+                //29. when contains("a") on a queue with ["a", "b"] return true (first node of the queue).
                 @Test
                 @DisplayName("returns true when the item is on the first node of the queue")
                 void shouldReturnTrueWhenItemIsFirstOnTheQueue(){
@@ -374,7 +379,7 @@ public class DoublyLinkedListDequeTest {
                     assertEquals(true, doublyLinkedListDeque.contains("a"));
                 }
 
-                //30. contains("b") == true (last node)
+                //30. when contains("b") on a queue with ["a", "b"] return true (last node of the queue).
                 @Test
                 @DisplayName("returns true when the item is on the last node of the queue")
                 void shouldReturnTrueWhenItemIsLastOnTheQueue(){
@@ -390,7 +395,7 @@ public class DoublyLinkedListDequeTest {
         @DisplayName("when using sort()")
         class sortTest{
 
-            //31. when the queue is (2,1) if sort() then first() == 1 && last() == 2
+            //31. when the queue has [2,1] if sort() then first() is 1 and last() is 2.
             @Test
             @DisplayName("a numeric comparator sort on a disordered queue with numeric elements")
             void disorderedSimpleNumericQueue(){
@@ -405,7 +410,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(2, doublyLinkedListDeque.last());
             }
 
-            //32. when the queue is (1,2) if sort() then first() == 1 && last() == 2
+            //32. when the queue has [1,2] if sort() then first() is 1 and last() is 2.
             @Test
             @DisplayName("a numeric comparator sort on an ordered queue with numeric elements")
             void OrderedNumericQueue(){
@@ -420,7 +425,7 @@ public class DoublyLinkedListDequeTest {
                 assertEquals(2, doublyLinkedListDeque.last());
             }
 
-            //33. when the queue is (3,2,1) if sort() then first() == 1 && last() == 3
+            //33. when the queue has [3,2,1] if sort() then first() is 1 and last() is 3.
             @Test
             @DisplayName("a numeric comparator sort on a disordered queue with three items")
             void disorderedWithMoreItemsNumericQueue(){
